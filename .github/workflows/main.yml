@@ -14,8 +14,10 @@ jobs:
     - uses: actions/setup-go@v1
       with:
         go-version: 1.x
-    - run: |
+    - name: RUN SCRIPT
+      run: |
         echo $HOME
+        echo $GITHUB_WORKSPACE
 #        echo ${{ secrets.GCP_SA_BASE64 }} | base64 -d > $HOME/cred.json
 #        go get github.com/prasmussen/gdrive
 #        $HOME/go/bin/gdrive --service-account ../cred.json list
