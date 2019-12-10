@@ -1,0 +1,22 @@
+name: Drive
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-go@v1
+      with:
+        go-version: 1.x
+    - run: |
+        echo $HOME
+#        echo ${{ secrets.GCP_SA_BASE64 }} | base64 -d > $HOME/cred.json
+#        go get github.com/prasmussen/gdrive
+#        $HOME/go/bin/gdrive --service-account ../cred.json list
+#        $HOME/go/bin/gdrive --service-account ../cred.json upload --parent 1GRpsJRh8XXptYE00rtfgqBpYlV-NBZbl $GITHUB_WORKSPACE/test.txt
