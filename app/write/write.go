@@ -1,5 +1,7 @@
 package write
 
-func Write(str string, err error) error {
+import . "draftDeploy/app/model"
+
+func Write(data ConvertData, err error) error {
 	return err
 }

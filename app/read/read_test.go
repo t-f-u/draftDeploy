@@ -5,8 +5,10 @@ import (
 	"testing"
 )
 
+const TestDraftDir = "../../test_draft"
+
 func TestReadFiles(t *testing.T) {
-	abs, _ := filepath.Abs("../test_draft")
+	abs, _ := filepath.Abs(TestDraftDir)
 	t.Log(abs)
 	files, err := readFiles(abs)
 	if err != nil {
@@ -15,10 +17,58 @@ func TestReadFiles(t *testing.T) {
 	if len(files) == 0 {
 		t.Fail()
 	}
-	for _, file := range files {
-		t.Log(file.Name)
-		t.Log(file.Ext)
-		t.Log(file.Path)
-		t.Log(file.FullPath)
+	for i, file := range files {
+		t.Log(i, "Name", file.Name)
+		t.Log(i, "Ext", file.Ext)
+		t.Log(i, "Path", file.Path)
+		t.Log(i, "FullPath", file.FullPath)
 	}
+}
+
+func TestIsNotEmptyAll(t *testing.T) {
+	if !(isNotEmptyAll("a", "b", "c")) {
+		t.Fail()
+	}
+	if isNotEmptyAll("", "b", "") {
+		t.Fail()
+	}
+	var str string
+	if isNotEmptyAll(str) {
+		t.Fail()
+	}
+}
+
+func TestGetBuildConfig(t *testing.T) {
+	abs, _ := filepath.Abs(TestDraftDir)
+	t.Log(abs)
+	files, err := readFiles(abs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	bc, err := getBuildConfig(files)
+	if err != nil {
+		t.Fatal(err)
+	} else {
+		t.Log(bc.Title)
+		t.Log(bc.Chapters)
+	}
+}
+
+func TestGetDrafts(t *testing.T) {
+	//abs, _ := filepath.Abs(TestDraftDir)
+	//t.Log(abs)
+	//files, err := readFiles(abs)
+	//if err != nil {
+	//	t.Fatal(err)
+	//}
+	////bc, err := getBuildConfig(files)
+	//if err != nil {
+	//	t.Fatal(err)
+	//}
+	//ds, err := getDrafts(bc, files)
+	//if err != nil {
+	//	t.Fatal(err)
+	//} else {
+	//	t.Log(ds)
+	//}
 }

@@ -11,3 +11,21 @@ type File struct {
 	Path     string
 	FullPath string
 }
+
+type BuildConfig struct {
+	Title    string
+	Chapters []string
+}
+
+type Draft struct {
+	Data []string
+}
+
+type ReadData struct {
+	BuildConfig BuildConfig
+	Drafts      []Draft
+}
+
+type ConvertData struct {
+	Data []byte
+}

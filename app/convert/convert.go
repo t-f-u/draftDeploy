@@ -1,5 +1,7 @@
 package convert
 
-func Convert(str string, err error) (string, error) {
-	return "", nil
+import . "draftDeploy/app/model"
+
+func Convert(data ReadData, err error) (ConvertData, error) {
+	return ConvertData{}, nil
 }
