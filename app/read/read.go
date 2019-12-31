@@ -13,6 +13,7 @@ import (
 
 func Read(args Args) (ReadData, error) {
 	var readData ReadData
+	readData.OutputDir = args.OutputDir
 	files, err := readFiles(args.InputDir)
 	if err != nil {
 		return readData, nil

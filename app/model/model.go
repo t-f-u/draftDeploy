@@ -21,11 +21,22 @@ type Draft struct {
 	Data []string
 }
 
+func (d Draft) EachLines(f func(string) string) Draft {
+	var ret []string
+	for _, str := range d.Data {
+		ret = append(ret, f(str))
+	}
+	return Draft{Data: ret}
+}
+
 type ReadData struct {
+	OutputDir   string
 	BuildConfig BuildConfig
 	Drafts      []Draft
 }
 
 type ConvertData struct {
-	Data []byte
+	OutputDir   string
+	BuildConfig BuildConfig
+	Data        []string
 }

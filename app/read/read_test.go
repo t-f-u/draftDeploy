@@ -55,20 +55,24 @@ func TestGetBuildConfig(t *testing.T) {
 }
 
 func TestGetDrafts(t *testing.T) {
-	//abs, _ := filepath.Abs(TestDraftDir)
-	//t.Log(abs)
-	//files, err := readFiles(abs)
-	//if err != nil {
-	//	t.Fatal(err)
-	//}
-	////bc, err := getBuildConfig(files)
-	//if err != nil {
-	//	t.Fatal(err)
-	//}
-	//ds, err := getDrafts(bc, files)
-	//if err != nil {
-	//	t.Fatal(err)
-	//} else {
-	//	t.Log(ds)
-	//}
+	abs, _ := filepath.Abs(TestDraftDir)
+	t.Log(abs)
+	files, err := readFiles(abs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	bc, err := getBuildConfig(files)
+	if err != nil {
+		t.Fatal(err)
+	}
+	dfs, err := getDraftFiles(bc, files)
+	if err != nil {
+		t.Fatal(err)
+	}
+	ds, err := readDrafts(dfs)
+	if err != nil {
+		t.Fatal(err.Error())
+	} else {
+		t.Log(ds)
+	}
 }
