@@ -2,13 +2,14 @@ package convert
 
 import (
 	. "draftDeploy/app/model"
+	"regexp"
 	"strings"
 )
 
 func Convert(data ReadData, err error) (ConvertData, error) {
-	var conv ConvertData
-	conv.OutputDir = data.OutputDir
-	conv.BuildConfig = data.BuildConfig
+	var converted ConvertData
+	converted.OutputDir = data.OutputDir
+	converted.BuildConfig = data.BuildConfig
 	var res []string
 	if err != nil {
 		return ConvertData{}, err
@@ -16,12 +17,13 @@ func Convert(data ReadData, err error) (ConvertData, error) {
 	for _, draft := range data.Drafts {
 		b := draft.
 			EachLines(trim).
+			EachLines(setPlaceholders(data.BuildConfig.Placeholders)).
 			EachLines(addNewLineMark).
 			EachLines(addIndent)
 		res = append(res, b.Data...)
 	}
-	conv.Data = res
-	return conv, nil
+	converted.Data = res
+	return converted, nil
 }
 
 func trim(str string) string {
@@ -37,6 +39,17 @@ func addIndent(str string) string {
 		return appendPrefix("　", str)
 	} else {
 		return str
+	}
+}
+
+func setPlaceholders(placeholders map[string]string) func(string) string {
+	return func(str string) string {
+		result := str
+		for key, value := range placeholders {
+			r := regexp.MustCompile("#{" + key + "}")
+			result = r.ReplaceAllString(result, value)
+		}
+		return result
 	}
 }
 

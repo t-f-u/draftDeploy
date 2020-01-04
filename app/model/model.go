@@ -13,8 +13,9 @@ type File struct {
 }
 
 type BuildConfig struct {
-	Title    string
-	Chapters []string
+	Title        string
+	Chapters     []string
+	Placeholders map[string]string
 }
 
 type Draft struct {

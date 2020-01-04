@@ -1,18 +1,18 @@
 package main
 
 import (
-	"./app"
-	"flag"
-	"fmt"
+	"draftDeploy/app"
+	"errors"
+	"log"
+	"os"
 )
 
 func main() {
-	dir := flag.String("dir", "./", "Target directory path")
-	dist := flag.String("dist", "./", "Distribution directory path")
-	flag.Parse()
-	fmt.Println(*dir)
-	fmt.Println(*dist)
-	if err := app.Start(*dir, *dist); err != nil {
-		//TODO Error handling
+	if len(os.Args) != 3 {
+		log.Fatal(errors.New("there must be 2 arguments: target and distribution"))
+	}
+
+	if err := app.Start(os.Args[1], os.Args[2]); err != nil {
+		log.Fatal(err.Error())
 	}
 }
